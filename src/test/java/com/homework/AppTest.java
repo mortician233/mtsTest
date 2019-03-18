@@ -39,10 +39,16 @@ public class AppTest
     @Test()
     public void testCreateForm() {
         driver.navigate().to("https://moskva.mts.ru/personal");
-        driver.manage().timeouts().implicitlyWait(8, TimeUnit.SECONDS);
+        /*
+        Если автотест упал, необходимо увеличить время ожидания
+         */
+        driver.manage().timeouts().implicitlyWait(9, TimeUnit.SECONDS);
         driver.findElement(By.xpath("//button[contains(text(),'Да')]")).click();
         driver.findElement(By.xpath("//input[@name='number']")).sendKeys("9023930349");
-        driver.findElement(By.xpath("/html/body/div[3]/div/div[1]/section[1]/div/div[1]/div/div/div/div[2]/div[1]/form/div[2]/div[3]/button")).click();
+        driver.findElement(By.xpath("//div[@class='tabs__content-item' and not (@style)]//button[text() = 'Пополнить']")).click();
+        /*
+        Проверка введенных полей на главной странице и сравнение URL
+         */
         WebElement elementNumber
                 = driver.findElement(By.xpath("//input[@type='tel' and @data-type='phone' and @value='(902) 393-03-49']"));
         elementNumber.isEnabled();
